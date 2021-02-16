@@ -434,8 +434,10 @@ Two_com_correct_obspi=function(X1,X2)
   f12=sum(X1==2)
   f21=sum(X2==1)
   f22=sum(X2==2)
-  C1=1-f11/n1*(n1 - 1) * f11 / ((n1 - 1) * f11 + 2 * f12)
-  C2=1-f21/n2*(n2 - 1) * f21 / ((n2 - 1) * f21 + 2 * f22)
+
+  safe_diff <- function(n, d){ifelse(d == 0, 0, n / d)}
+  C1=1-safe_diff(f11, n1)*(n1 - 1) * safe_diff(f11, ((n1 - 1) * f11 + 2 * f12))
+  C2=1-safe_diff(f21, n2)*(n2 - 1) * safe_diff(f21, ((n2 - 1) * f21 + 2 * f22))
   
   PP1=correct_obspi(X1)
   PP2=correct_obspi(X2)
